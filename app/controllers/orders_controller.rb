@@ -14,8 +14,11 @@ class OrdersController < ApplicationController
   def create
     @service = Service.find(params[:service_id])
     @order = @service.orders.create(order_params)
-
     @service.occupied!
+    @order.order_extras.map do |f|  
+      f.price = Extra.find(f.extra_id).price
+    end
+
     @order.save!
 
     redirect_to service_order_path(@service, @order)
