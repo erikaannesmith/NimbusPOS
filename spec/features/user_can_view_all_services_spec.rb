@@ -49,6 +49,7 @@ describe "User visits services index" do
     visit new_service_order_path(@service)
 
     expect(page).to have_content(@extra.name)
-
+    expect(page).to have_field("order[order_extras_attributes][0][quantity]")
   end
+
 end
