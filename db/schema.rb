@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171113232146) do
+ActiveRecord::Schema.define(version: 20171114021218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "extras", force: :cascade do |t|
+    t.string "name"
+    t.integer "price"
+    t.integer "extra_type", default: 0
+  end
+
+  create_table "order_extras", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "extra_id"
+    t.integer "quantity"
+    t.integer "price"
+    t.index ["extra_id"], name: "index_order_extras_on_extra_id"
+    t.index ["order_id"], name: "index_order_extras_on_order_id"
+  end
 
   create_table "orders", force: :cascade do |t|
     t.bigint "service_id"
@@ -33,5 +48,7 @@ ActiveRecord::Schema.define(version: 20171113232146) do
     t.integer "hourly_rate"
   end
 
+  add_foreign_key "order_extras", "extras"
+  add_foreign_key "order_extras", "orders"
   add_foreign_key "orders", "services"
 end

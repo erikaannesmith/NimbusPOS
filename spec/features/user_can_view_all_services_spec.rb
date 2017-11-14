@@ -3,6 +3,7 @@ require 'rails_helper'
 describe "User visits services index" do
   before :each do 
     @service = Service.create(name: "Mahjong 1", status: "open", hourly_rate: 40)
+    @extra = Extra.create(name: "Oreos", extra_type: "snack", price: 2)
   end
 
   it "they see buttons for each service" do
@@ -24,8 +25,9 @@ describe "User visits services index" do
     fill_in "order[end_time]", with: "2017-11-13 16:50:10 -0700"
 
     click_button "Create Order"
+    order = Order.last
 
-    expect(current_path).to eq(service_order_path(@service, Order.last))
+    expect(current_path).to eq(service_order_path(@service, order))
   end
 
   it "order show page has totals" do
@@ -41,5 +43,12 @@ describe "User visits services index" do
     expect(page).to have_content("Total Previous Charges:")
     expect(page).to have_content("Total Bill:")
     expect(page).to have_button("Checkout")
+  end
+
+  it "can add extras to order" do
+    visit new_service_order_path(@service)
+
+    expect(page).to have_content(@extra.name)
+
   end
 end

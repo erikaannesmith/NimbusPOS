@@ -7,6 +7,8 @@ class OrdersController < ApplicationController
   def new
     @service = Service.find(params[:service_id])
     @order = @service.orders.new
+    # @extras_snacks = Extra.where(extra_type: "snack")
+    # @extras_drinks = Extra.where(extra_type: "drink")
   end
 
   def create
