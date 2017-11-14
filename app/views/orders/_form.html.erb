@@ -9,7 +9,6 @@
   </div>
   <h1>Extras</h1>
   <% @extras.each do |extra| %>
-    <%= extra.name %>
     <div id = 'order-extras'>
       <%= f.fields_for :order_extras do |oe| %>
         <%= render 'order_extra_fields', f: oe %>

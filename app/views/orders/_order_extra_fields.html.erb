@@ -1,7 +1,7 @@
 <div class = 'nested-fields'>
   <div class = 'field'>
-    <%= f.label :extra %><br/>
-    <%= f.select :extra, Extra.pluck(:name) %>
+    <%= f.label :extra_id %><br/>
+    <%= f.select :extra_id, Extra.pluck(:name, :id) %>
   </div>
 
   <div class = 'field'>
