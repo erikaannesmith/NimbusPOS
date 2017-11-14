@@ -12,9 +12,10 @@ class OrdersController < ApplicationController
   def create
     @service = Service.find(params[:service_id])
     @order = @service.orders.create(order_params)
-    if @order.save
-      redirect_to service_order_path(@service, @order)
-    end
+    @order.save
+    @service.occupied!
+
+    redirect_to service_order_path(@service, @order)
   end
 
   private
