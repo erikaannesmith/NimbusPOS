@@ -7,8 +7,8 @@ class OrdersController < ApplicationController
   def new
     @service = Service.find(params[:service_id])
     @order = @service.orders.new
-    # @extras_snacks = Extra.where(extra_type: "snack")
-    # @extras_drinks = Extra.where(extra_type: "drink")
+    @extras = Extra.all
+    @order.order_extras.build
   end
 
   def create
@@ -23,7 +23,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:start_time, :end_time)
+    params.require(:order).permit(:start_time, :end_time, order_extras_attributes: [:id, :quantity, :extra_id, :_destroy])
   end
 
 end
