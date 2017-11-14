@@ -27,4 +27,19 @@ describe "User visits services index" do
 
     expect(current_path).to eq(service_order_path(@service, Order.last))
   end
+
+  it "order show page has totals" do
+    visit new_service_order_path(@service)
+
+    fill_in "order[start_time]", with: "2017-11-13 16:46:10 -0700"
+    fill_in "order[end_time]", with: "2017-11-13 16:50:10 -0700"
+
+    click_button "Create Order"
+
+    expect(page).to have_content("Total Service Cost:")
+    expect(page).to have_content("Total Snack/Drink Cost:")
+    expect(page).to have_content("Total Previous Charges:")
+    expect(page).to have_content("Total Bill:")
+    expect(page).to have_button("Checkout")
+  end
 end

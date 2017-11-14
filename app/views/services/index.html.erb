@@ -1,6 +1,5 @@
 <h1>All Services</h1>
 
-
 <% @services.each do |service| %>
   <%= link_to service.name, new_service_order_path(service) %>
 <% end %>
