@@ -28,6 +28,12 @@
       <h3>Service Discount (Sunday-Thurday): <%= "20%" %></h3>
     <% end %>
   <% end %>
-<h2>Total Bill: <%= number_to_currency((@order.previous_cost + @order.total_extras_cost + (@order.total_service_cost * @order.apply_discount))) %></h2>
+<h2>Total Bill: <%= number_to_currency(@order.total_bill) %></h2>
 
-<%= button_to "Checkout" %>
+<form>
+Total Cost: <input type="text" id="firstNumber" Value= <%= @order.total_bill %> /><br>
+People: <input type="text" id="secondNumber" /><br>
+<input type="button" onClick="divideBy()" Value="Split" />
+</form>
+<p>Amount Owed/Person: <span id = "result"></span></p>
+<%= button_to "Checkout" %></br>

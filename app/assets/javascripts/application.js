@@ -13,3 +13,11 @@
 //= require rails-ujs
 //= require cocoon
 //= require_tree .
+
+function divideBy() {
+  num1 = document.getElementById("firstNumber").value;
+  num2 = document.getElementById("secondNumber").value;
+  // document.getElementById("firstNumber").style.display = 'block';
+  document.getElementById("result").innerHTML = num1 / num2;
+}
+

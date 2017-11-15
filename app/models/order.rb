@@ -36,4 +36,8 @@ class Order < ApplicationRecord
     end
   end
 
+  def total_bill
+    (previous_cost + total_extras_cost + (total_service_cost * apply_discount))
+  end
+
 end
