@@ -8,7 +8,7 @@
     <%= f.time_field :end_time %><br/>
   </div>
   <h1>Extras</h1>
-  <% @extras.each do |extra| %>
+  <%# <% @extras.each do |extra| %> 
     <div id = 'order-extras'>
       <%= f.fields_for :order_extras do |oe| %>
         <%= render 'order_extra_fields', f: oe %>
@@ -17,7 +17,7 @@
         <%= link_to_add_association '+', f, :order_extras %>
       </div>
     </div>
-  <% end %>
+  <%# <% end %> 
 
 
   <%= f.submit %>
