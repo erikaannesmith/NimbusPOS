@@ -5,9 +5,7 @@
 </div>
 
 <div class = 'extra-receipt'>
-<h3>Total Snack/Drink Cost: 
-  <%= number_to_currency(@order.total_extras_cost) %>
-  </h3>
+<h3>Total Snack/Drink Cost: <%= number_to_currency(@order.total_extras_cost) %></h3>
 <% if @order.order_extras.all? { |extra| !extra.quantity.nil? } %>
   <% @order.order_extras.map do |extra| %>
     <%= Extra.find(extra.extra_id).name %> (<%= extra.quantity %>) 

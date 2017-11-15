@@ -27,7 +27,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:start_time, :end_time, order_extras_attributes: [:id, :quantity, :extra_id, :_destroy])
+    params.require(:order).permit(:start_time, :end_time, :previous_cost, order_extras_attributes: [:id, :quantity, :extra_id, :_destroy])
   end
 
 end
