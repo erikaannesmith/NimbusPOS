@@ -26,5 +26,14 @@ class Order < ApplicationRecord
     end
   end
 
+  def apply_discount
+    if end_time.nil? 
+      1
+    elsif (0..4).include?(start_time.strftime('%w').to_i)
+      0.8
+    else
+      1
+    end
+  end
 
 end

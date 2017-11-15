@@ -1,24 +1,33 @@
 <h1>TOTALS</h1>
 <div class = 'order-receipt'>
-<h3>Total Service Cost: <%= number_to_currency(@order.total_service_cost) %></h3>
-  <%= @order.service.name %>: <%= number_to_currency(@order.service.hourly_rate) %>/hr
+  <h3>Total Service Cost: <%= number_to_currency(@order.total_service_cost) %></h3>
+    <ul>
+      <li><%= @order.service.name %>: <%= number_to_currency(@order.service.hourly_rate) %>/hr</li>
+      <% if !@order.end_time.nil? %>
+        <li><%= (@order.end_time - @order.start_time) / 3600 %> hrs</li>
+      <% end %>
+    </ul>
 </div>
 
 <div class = 'extra-receipt'>
-<h3>Total Snack/Drink Cost: <%= number_to_currency(@order.total_extras_cost) %></h3>
-<% if @order.order_extras.all? { |extra| !extra.quantity.nil? } %>
-  <% @order.order_extras.map do |extra| %>
-    <%= Extra.find(extra.extra_id).name %> (<%= extra.quantity %>) 
-      <ul>
-        <li>Price: <%= number_to_currency(extra.price) %></li>
-        <li>Subtotal: <%= number_to_currency(extra.price * extra.quantity) %></li>
-      </ul>
+  <h3>Total Snack/Drink Cost: <%= number_to_currency(@order.total_extras_cost) %></h3>
+  <% if @order.order_extras.all? { |extra| !extra.quantity.nil? } %>
+    <% @order.order_extras.map do |extra| %>
+      <%= Extra.find(extra.extra_id).name %> (<%= extra.quantity %>) 
+        <ul>
+          <li>Price: <%= number_to_currency(extra.price) %></li>
+          <li>Subtotal: <%= number_to_currency(extra.price * extra.quantity) %></li>
+        </ul>
+    <% end %>
   <% end %>
-<% end %>
-  
 </div>
 
 <h3>Total Previous Charges: <%= number_to_currency(@order.previous_cost) %></h3>
-<h2>Total Bill: <%= number_to_currency(@order.previous_cost + @order.total_extras_cost + @order.total_service_cost) %></h2>
+  <% if !@order.end_time.nil? %>
+    <% if (0..4).include?(@order.start_time.strftime('%w').to_i) %>
+      <h3>Service Discount (Sunday-Thurday): <%= "20%" %></h3>
+    <% end %>
+  <% end %>
+<h2>Total Bill: <%= number_to_currency((@order.previous_cost + @order.total_extras_cost + (@order.total_service_cost * @order.apply_discount))) %></h2>
 
 <%= button_to "Checkout" %>
