@@ -1,10 +1,13 @@
+<%= link_to "Edit Order", edit_service_order_path(@order.service, @order) %>
+
 <h1>TOTALS</h1>
+
 <div class = 'order-receipt'>
   <h3>Total Service Cost: <%= number_to_currency(@order.total_service_cost) %></h3>
     <ul>
       <li><%= @order.service.name %>: <%= number_to_currency(@order.service.hourly_rate) %>/hr</li>
       <% if !@order.end_time.nil? %>
-        <li><%= (@order.end_time - @order.start_time) / 3600 %> hrs</li>
+        <li><%= ((@order.end_time - @order.start_time) / 3600).round(2) %> hrs</li>
       <% end %>
     </ul>
 </div>
@@ -23,17 +26,19 @@
 </div>
 
 <h3>Total Previous Charges: <%= number_to_currency(@order.previous_cost) %></h3>
-  <% if !@order.end_time.nil? %>
-    <% if (0..4).include?(@order.start_time.strftime('%w').to_i) %>
-      <h3>Service Discount (Sunday-Thurday): <%= "20%" %></h3>
-    <% end %>
+<% if !@order.end_time.nil? %>
+  <% if (0..4).include?(@order.start_time.strftime('%w').to_i) %>
+    <h4>Service Discount (Sunday-Thurday): <%= "20%" %></h4>
   <% end %>
+<% end %>
+
 <h2>Total Bill: <%= number_to_currency(@order.total_bill) %></h2>
 
 <form>
-Total Cost: <input type="text" id="firstNumber" Value= <%= @order.total_bill %> /><br>
-People: <input type="text" id="secondNumber" /><br>
-<input type="button" onClick="divideBy()" Value="Split" />
+  Total Cost: <input type="text" id="firstNumber" Value= <%= @order.total_bill %> /><br>
+  People: <input type="text" id="secondNumber" /><br>
+  <input type="button" onClick="divideBy()" Value="Split" />
 </form>
 <p>Amount Owed/Person: <span id = "result"></span></p>
-<%= button_to "Checkout" %></br>
+
+<%= button_to "Checkout", service_order_sales_path(@order.service, @order), method: :post %></br>

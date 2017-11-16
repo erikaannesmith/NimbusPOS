@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171114021218) do
+ActiveRecord::Schema.define(version: 20171116003257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,20 @@ ActiveRecord::Schema.define(version: 20171114021218) do
     t.index ["service_id"], name: "index_orders_on_service_id"
   end
 
+  create_table "sales", force: :cascade do |t|
+    t.float "cash_handled"
+    t.bigint "service_id"
+    t.bigint "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "date"
+    t.string "weekday"
+    t.float "time_spent"
+    t.float "total_bill"
+    t.index ["order_id"], name: "index_sales_on_order_id"
+    t.index ["service_id"], name: "index_sales_on_service_id"
+  end
+
   create_table "services", force: :cascade do |t|
     t.string "name"
     t.integer "status", default: 0
@@ -51,4 +65,6 @@ ActiveRecord::Schema.define(version: 20171114021218) do
   add_foreign_key "order_extras", "extras"
   add_foreign_key "order_extras", "orders"
   add_foreign_key "orders", "services"
+  add_foreign_key "sales", "orders"
+  add_foreign_key "sales", "services"
 end
