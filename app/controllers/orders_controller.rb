@@ -23,6 +23,20 @@ class OrdersController < ApplicationController
     redirect_to service_order_path(@service, @order)
   end
 
+  def edit
+    @service = Service.find(params[:service_id])
+    @order = @service.orders.find(params[:id])
+  end
+
+  def update
+    service = Service.find(params[:service_id])
+    order = service.orders.find(params[:id])
+    order.update(order_params)
+    # order.order_extras = (order_params["order_extras_attributes"])
+
+    redirect_to service_order_path(service, order)
+  end
+
   private
 
   def order_params
