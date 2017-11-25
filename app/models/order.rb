@@ -8,7 +8,7 @@ class Order < ApplicationRecord
     if start_time.nil? || end_time.nil?
       0
     else
-      (end_time - start_time) / 3600.to_f
+      ((end_time - start_time) / 3600.to_f).round(2)
     end
   end
 
@@ -34,7 +34,7 @@ class Order < ApplicationRecord
   end
 
   def total_bill
-    (previous_cost + total_extras_cost + (total_service_cost * apply_discount))
+    ((previous_cost + total_extras_cost + (total_service_cost * apply_discount))).round(2)
   end
 
 end

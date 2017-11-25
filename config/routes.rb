@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   root 'services#index'
 
   resources :services do
-    resources :orders
+    resources :orders do
+      resources :sales
+    end
   end
 
+  resources :sales
 end
