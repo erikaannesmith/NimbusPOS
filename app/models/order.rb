@@ -17,17 +17,14 @@ class Order < ApplicationRecord
   end
 
   def total_extras_cost
-    if order_extras.all? { |extra| extra.quantity.nil? }
-      0
-    else
-      order_extras.map do |extra| 
-        extra.price * extra.quantity 
-      end.reduce(:+)
-    end
+    order_extras
+      .select { |order_extra| order_extra.quantity && order_extra.quantity > 0 }
+      .map { |extra| extra.price * extra.quantity }
+      .sum
   end
 
   def apply_discount
-    if end_time.nil? 
+    if end_time.nil?
       1
     elsif (0..4).include?(start_time.strftime('%w').to_i)
       0.8
