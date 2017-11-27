@@ -12,6 +12,7 @@
 //
 //= require rails-ujs
 //= require cocoon
+//= require moment
 //= require_tree .
 
 function divideBy() {

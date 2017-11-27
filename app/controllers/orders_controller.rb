@@ -28,6 +28,9 @@ class OrdersController < ApplicationController
   def edit
     @service = Service.find(params[:service_id])
     @order = @service.orders.find(params[:id])
+    Extra.where.not(id: @order.order_extras.pluck(:extra_id)).each do |extra|
+      @order.order_extras.build(extra: extra)
+    end
   end
 
   def update
