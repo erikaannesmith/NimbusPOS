@@ -1,10 +1,18 @@
-<div class = 'nested-fields'>
-  <div class = 'field'>
-    <%= f.hidden_field :extra_id %>
-  </div>
+<tr class = 'nested-fields order-extra-fields'>
+  <td>
+    <div class = 'field'>
+      <%= f.hidden_field :extra_id %>
+    </div>
 
-  <div class = 'field'>
     <%= f.label :quantity, "Quantity of #{f.object.extra_id ? Extra.find(f.object.extra_id).name : 'Something'}" %>
-    <%= f.number_field :quantity %>
-  </div>
-</div>
+  </td>
+
+  <td class = 'field'>
+    <%= f.number_field :quantity, class: 'form-control quantity-field', min: 0 %>
+  </td>
+
+  <td class="actions text-right">
+    <button class="btn btn-success plus-btn">+</button>
+    <button class="btn btn-danger minus-btn">-</button>
+  </td>
+</tr>
