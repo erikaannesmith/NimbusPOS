@@ -14,7 +14,13 @@
       <%= link_to "Home", "/" %>
 
       <% flash.each do |type, message| %>
-        <%= content_tag :div, sanitize(message), class: type %>
+        <% alert_type = case type
+          when 'success' then 'success'
+          when 'error' then 'danger'
+          else 'info'
+          end
+        %>
+        <%= content_tag :div, sanitize(message), class: "#{type} alert alert-#{alert_type}" %>
       <% end %>
 
       <%= yield %>

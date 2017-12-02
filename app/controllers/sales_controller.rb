@@ -16,12 +16,12 @@ class SalesController < ApplicationController
                  total_bill: @order.total_bill)
     if @sale.save
       @service.open!
-      flash[:notice] = "Sale has successfully been recorded!"
-      redirect_to services_path
+      flash[:success] = "Sale has successfully been recorded!"
     else
-      flash[:notice] = "Sale not successfully recorded."
-      redirect_to services_path
+      flash[:error] = "Sale not successfully recorded."
     end
+
+    redirect_to services_path
   end
 
   private
