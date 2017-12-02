@@ -11,6 +11,8 @@ class OrdersController < ApplicationController
     Extra.all.each do |extra|
       @order.order_extras.build(extra: extra)
     end
+
+    render 'new', layout: params[:no_layout].blank?
   end
 
   def create
@@ -31,6 +33,8 @@ class OrdersController < ApplicationController
     Extra.where.not(id: @order.order_extras.pluck(:extra_id)).each do |extra|
       @order.order_extras.build(extra: extra)
     end
+
+    render 'edit', layout: params[:no_layout].blank?
   end
 
   def update
