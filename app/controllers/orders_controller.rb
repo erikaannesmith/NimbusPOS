@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    @sale = @order.sale || @order.build_sale
   end
 
   def new
