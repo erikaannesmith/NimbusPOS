@@ -10,10 +10,14 @@
   </head>
 
   <body>
-    <% flash.each do |type, message| %>
+    <div class="container-fluid main-container">
+      <%= link_to "Home", "/" %>
+
+      <% flash.each do |type, message| %>
         <%= content_tag :div, sanitize(message), class: type %>
       <% end %>
-      <%= link_to "Home", "/" %>
-    <%= yield %>
+
+      <%= yield %>
+    </div>
   </body>
 </html>
