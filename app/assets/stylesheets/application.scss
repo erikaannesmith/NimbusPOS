@@ -22,3 +22,14 @@ $enable-gradients: true;
 .main-container {
   padding-top: 1rem;
 }
+
+.input-group-addon:not(:last-child) {
+    border-right: 0;
+    margin-left: 10px;
+}
+
+.input-group .form-control:not(:first-child), .input-group-addon:not(:first-child), .input-group-btn:not(:first-child) > .btn, .input-group-btn:not(:first-child) > .btn-group > .btn, .input-group-btn:not(:first-child) > .dropdown-toggle, .input-group-btn:not(:last-child) > .btn:not(:first-child), .input-group-btn:not(:last-child) > .btn-group:not(:first-child) > .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    max-width: 125px;
+}

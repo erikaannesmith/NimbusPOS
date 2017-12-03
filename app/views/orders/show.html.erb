@@ -35,17 +35,21 @@
 <h2>Total Bill: <%= number_to_currency(@order.total_bill) %></h2>
 
 <form>
-  Total Cost: <input type="text" id="firstNumber" Value= <%= @order.total_bill %> /><br>
+  <input type="hidden" id="firstNumber" Value= <%= @order.total_bill %> /><br>
   People: <input type="text" id="secondNumber" /><br>
   <input type="button" onClick="divideBy()" Value="Split" />
 </form>
-<p>Amount Owed/Person: <span id = "result"></span></p>
+  <p>Amount Owed/Person: $<span id = "result"></span></p>
 
-<%= form_for @sale, url: service_order_sales_path(@order.service, @order), method: :post do |f| %>
-  <%= f.label :cash_handled, 'Cash Handled' %>
-  <%= f.number_field :cash_handled %>
+  <%= form_for @sale, url: service_order_sales_path(@order.service, @order), method: :post do |f| %>
+    <%= f.label :cash_handled, 'Cash Handled' %>
+<div class = 'field input-group'>
+    <span class="input-group-addon">$</span>
+    <%= f.number_field :cash_handled, class: 'form-control' %>
 
-  <%= f.submit 'Checkout' %>
-<% end %>
+</div>
+  <br/>
+    <%= f.submit 'Checkout', class: 'btn btn-success btn-lg'%>
+  <% end %>
 
 </br>
