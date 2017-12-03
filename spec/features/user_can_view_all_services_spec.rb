@@ -1,15 +1,20 @@
 require 'rails_helper'
 
 describe "User visits services index" do
-  before :each do 
-    @service = Service.create(name: "Mahjong 1", status: "open", hourly_rate: 40)
+  before :each do
+    @service = Service.create(name: "Mahjong 1", status: "open", hourly_rate: 40, position: 1)
+    @service_3 = Service.create(name: "Mahjong 3", status: "open", hourly_rate: 40, position: 3)
+    @service_2 = Service.create(name: "Mahjong 2", status: "open", hourly_rate: 40, position: 2)
     @extra = Extra.create(name: "Oreos", extra_type: "snack", price: 7)
   end
 
-  it "they see buttons for each service" do
+  it "they see buttons for each service in order of position" do
     visit root_path
 
-    expect(page).to have_link("Mahjong 1")
+    expect(page).to have_content [@service, @service_2, @service_3]
+      .map { |service| "#{service.name} - open" }
+      .join(' ')
+
     click_on "Mahjong 1"
 
     expect(current_path).to eq(new_service_order_path(@service))

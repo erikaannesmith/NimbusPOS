@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171116003257) do
+ActiveRecord::Schema.define(version: 20171202224929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20171116003257) do
     t.string "name"
     t.integer "status", default: 0
     t.integer "hourly_rate"
+    t.integer "position"
   end
 
   add_foreign_key "order_extras", "extras"

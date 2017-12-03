@@ -16,7 +16,7 @@
   <h3>Total Snack/Drink Cost: <%= number_to_currency(@order.total_extras_cost) %></h3>
   <% if @order.order_extras.all? { |extra| !extra.quantity.nil? } %>
     <% @order.order_extras.map do |extra| %>
-      <%= Extra.find(extra.extra_id).name %> (<%= extra.quantity %>) 
+      <%= Extra.find(extra.extra_id).name %> (<%= extra.quantity %>)
         <ul>
           <li>Price: <%= number_to_currency(extra.price) %></li>
           <li>Subtotal: <%= number_to_currency(extra.price * extra.quantity) %></li>
@@ -41,4 +41,11 @@
 </form>
 <p>Amount Owed/Person: <span id = "result"></span></p>
 
-<%= button_to "Checkout", service_order_sales_path(@order.service, @order), method: :post %></br>
+<%= form_for @sale, url: service_order_sales_path(@order.service, @order), method: :post do |f| %>
+  <%= f.label :cash_handled, 'Cash Handled' %>
+  <%= f.number_field :cash_handled %>
+
+  <%= f.submit 'Checkout' %>
+<% end %>
+
+</br>
