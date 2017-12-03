@@ -51,4 +51,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'cocoon'
 gem 'momentjs-rails'
+gem 'bootstrap', '~> 4.0.0.beta2.1'
 gem 'acts_as_list'
