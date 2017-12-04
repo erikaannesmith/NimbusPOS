@@ -28,6 +28,14 @@ class SalesController < ApplicationController
     redirect_to services_path
   end
 
+  def destroy
+    @sale = Sale.find(params[:id])
+    @sale.destroy
+    flash[:info] = "Sale has been deleted from the database."
+
+    redirect_to sales_path
+  end
+
   private
 
   def sales_params
