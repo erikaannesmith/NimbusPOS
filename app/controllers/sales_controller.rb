@@ -7,6 +7,7 @@ class SalesController < ApplicationController
   def create
     @service = Service.find(params[:service_id])
     @order = Order.find(params[:order_id])
+    @order.closed!
     @sale = Sale.new(
       service_id: @service.id,
       order_id: @order.id,

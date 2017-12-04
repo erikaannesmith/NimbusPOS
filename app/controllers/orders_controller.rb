@@ -19,6 +19,7 @@ class OrdersController < ApplicationController
   def create
     @service = Service.find(params[:service_id])
     @order = @service.orders.create(order_params)
+    @order.open!
     @service.occupied!
     @order.order_extras.map do |f|
       f.price = Extra.find(f.extra_id).price
