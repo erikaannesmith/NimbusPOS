@@ -7,6 +7,7 @@ class SalesController < ApplicationController
   def create
     @service = Service.find(params[:service_id])
     @order = Order.find(params[:order_id])
+    @order.closed!
     @sale = Sale.new(
       service_id: @service.id,
       order_id: @order.id,
@@ -25,6 +26,14 @@ class SalesController < ApplicationController
     end
 
     redirect_to services_path
+  end
+
+  def destroy
+    @sale = Sale.find(params[:id])
+    @sale.destroy
+    flash[:info] = "Sale has been deleted from the database."
+
+    redirect_to sales_path
   end
 
   private

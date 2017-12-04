@@ -197,8 +197,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootstrap (~> 4.0.0.beta2.1)
   acts_as_list
+  bootstrap (~> 4.0.0.beta2.1)
   byebug
   capybara
   cocoon

@@ -4,6 +4,7 @@ class Order < ApplicationRecord
   has_many :order_extras, inverse_of: :order
   has_many :extras, through: :order_extras
   accepts_nested_attributes_for :order_extras, reject_if: :all_blank, allow_destroy: true
+  enum status: ["open", "closed"]
 
   def time_difference
     if start_time.nil? || end_time.nil?
