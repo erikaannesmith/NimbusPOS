@@ -11,7 +11,7 @@
       <li>Date: <%= sale.date %></li>
       <li>Weekday: <%= sale.weekday %></li>
       <li>Cash Handled: <%= number_to_currency sale.cash_handled %></li>
-      <li>Total Bill: <%= sale.total_bill %></li>
+      <li>Total Bill: <%= number_to_currency(sale.total_bill) %></li>
     </ul>
   </li>
 <% end %>
