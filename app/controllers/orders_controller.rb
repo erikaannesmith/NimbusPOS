@@ -9,8 +9,12 @@ class OrdersController < ApplicationController
     @service = Service.find(params[:service_id])
     @order = @service.orders.new
     @extras = Extra.all
-    Extra.all.each do |extra|
-      @order.order_extras.build(extra: extra)
+
+    @extras.each do |extra|
+      case extra.extra_type
+      when 'snack' then @order.snack_order_extras.build(extra: extra)
+      when 'drink' then @order.drink_order_extras.build(extra: extra)
+      end
     end
 
     render 'new', layout: params[:no_layout].blank?
@@ -21,7 +25,7 @@ class OrdersController < ApplicationController
     @order = @service.orders.create(order_params)
     @order.open!
     @service.occupied!
-    @order.order_extras.map do |f|
+    @order.order_extras.each do |f|
       f.price = Extra.find(f.extra_id).price
     end
     @order.save!
@@ -59,7 +63,13 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:start_time, :end_time, :previous_cost, order_extras_attributes: [:id, :quantity, :extra_id, :_destroy])
+    params.require(:order).permit(
+      :start_time,
+      :end_time,
+      :previous_cost,
+      snack_order_extras_attributes: [:id, :quantity, :extra_id, :_destroy],
+      drink_order_extras_attributes: [:id, :quantity, :extra_id, :_destroy],
+    )
   end
 
 end

@@ -24,10 +24,22 @@
 
   <br/>
 
-  <h1>Extras</h1>
-  <table class="table" id = 'order-extras'>
+  <h1>Snacks</h1>
+  <table class="table" id = 'snack-order-extras'>
     <tbody>
-      <%= f.fields_for :order_extras do |oe| %>
+      <%= f.fields_for :snack_order_extras do |oe| %>
+        <%= render 'order_extra_fields', f: oe %>
+      <% end %>
+    </tbody>
+  </table>
+
+
+  <br/>
+
+  <h1>Drinks</h1>
+  <table class="table" id = 'drink-order-extras'>
+    <tbody>
+      <%= f.fields_for :drink_order_extras do |oe| %>
         <%= render 'order_extra_fields', f: oe %>
       <% end %>
     </tbody>
