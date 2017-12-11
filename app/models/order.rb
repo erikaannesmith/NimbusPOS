@@ -1,8 +1,14 @@
 class Order < ApplicationRecord
   belongs_to :service
   has_one :sale
-  has_many :snack_order_extras, class_name: 'OrderExtra', inverse_of: :order
-  has_many :drink_order_extras, class_name: 'OrderExtra', inverse_of: :order
+  has_many :snack_order_extras,
+    -> { joins(:extra).where('extras.extra_type' => 'snack') },
+    class_name: 'OrderExtra',
+    inverse_of: :order
+  has_many :drink_order_extras,
+    -> { joins(:extra).where('extras.extra_type' => 'drink') },
+    class_name: 'OrderExtra',
+    inverse_of: :order
   has_many :extras, through: :order_extras
   accepts_nested_attributes_for :snack_order_extras, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :drink_order_extras, reject_if: :all_blank, allow_destroy: true

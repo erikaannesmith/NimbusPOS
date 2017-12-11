@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 describe 'Ordering Process' do
-  describe 'cash handled tracking' do
-    let!(:service) { Service.create!(name: 'Mahjong 1', status: 'open', hourly_rate: 40) }
+  let!(:service) { Service.create!(name: 'Mahjong 1', status: 'open', hourly_rate: 40) }
 
+  describe 'cash handled tracking' do
     it 'allows storage of amount of cash handled for an order' do
       visit '/'
 
@@ -21,6 +21,52 @@ describe 'Ordering Process' do
 
       visit '/sales'
       expect(page).to have_content 'Cash Handled: $123.45'
+    end
+  end
+
+  describe 'editing an order' do
+    it 'puts extras in appropriate places' do
+      Extra.create!(name: 'Oreos', extra_type: 'snack')
+      Extra.create!(name: 'Cucumbers', extra_type: 'snack')
+      Extra.create!(name: 'Beer', extra_type: 'drink')
+      Extra.create!(name: 'Vodka', extra_type: 'drink')
+
+      visit '/'
+      click_on service.name
+      expect(page).to have_content 'New Order'
+
+      within '#snack-order-extras' do
+        expect(page).to have_content 'Oreos'
+        expect(page).to have_content 'Cucumbers'
+        expect(page).not_to have_content 'Beer'
+        expect(page).not_to have_content 'Vodka'
+      end
+
+      within '#drink-order-extras' do
+        expect(page).not_to have_content 'Oreos'
+        expect(page).not_to have_content 'Cucumbers'
+        expect(page).to have_content 'Beer'
+        expect(page).to have_content 'Vodka'
+      end
+
+      click_on 'Create Order'
+
+      expect(page).to have_content 'TOTALS'
+      click_on 'Update Order'
+
+      within '#snack-order-extras' do
+        expect(page).to have_content 'Oreos'
+        expect(page).to have_content 'Cucumbers'
+        expect(page).not_to have_content 'Beer'
+        expect(page).not_to have_content 'Vodka'
+      end
+
+      within '#drink-order-extras' do
+        expect(page).not_to have_content 'Oreos'
+        expect(page).not_to have_content 'Cucumbers'
+        expect(page).to have_content 'Beer'
+        expect(page).to have_content 'Vodka'
+      end
     end
   end
 end

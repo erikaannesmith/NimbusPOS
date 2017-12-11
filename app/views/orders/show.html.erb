@@ -29,7 +29,7 @@
 <h3>Total Previous Charges: <%= number_to_currency(@order.previous_cost) %></h3>
 <% if !@order.end_time.nil? %>
   <% if (0..4).include?(@order.start_time.strftime('%w').to_i) %>
-    <h4>Service Discount (Sunday-Thurday): <%= "20%" %></h4>
+    <h4>Service Discount (Sunday-Thursday): <%= "20%" %></h4>
   <% end %>
 <% end %>
 
