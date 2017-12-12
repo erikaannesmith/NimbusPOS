@@ -17,7 +17,7 @@ class Order < ApplicationRecord
   before_save :offset_day_of_end_time, if: :end_time_changed?
 
   def order_extras
-    snack_order_extras & drink_order_extras
+    snack_order_extras | drink_order_extras
   end
 
   def time_difference
