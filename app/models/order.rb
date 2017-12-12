@@ -6,6 +6,8 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :order_extras, reject_if: :all_blank, allow_destroy: true
   enum status: ["open", "closed"]
 
+  before_save :offset_day_of_end_time, if: :end_time_changed?
+
   def time_difference
     if start_time.nil? || end_time.nil?
       0
@@ -28,7 +30,7 @@ class Order < ApplicationRecord
   def apply_discount
     if end_time.nil?
       1
-    elsif (0..4).include?(start_time.strftime('%w').to_i)
+    elsif after_midnight?(start_time)
       0.8
     else
       1
@@ -37,6 +39,16 @@ class Order < ApplicationRecord
 
   def total_bill
     ((previous_cost + total_extras_cost + (total_service_cost * apply_discount))).round(2)
+  end
+
+  private
+
+  def offset_day_of_end_time
+    self.end_time += 1.day if time_difference.negative?
+  end
+
+  def after_midnight?(time)
+    (0..4).include?(time.hour)
   end
 
 end
