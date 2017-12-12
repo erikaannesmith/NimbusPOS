@@ -1,6 +1,6 @@
 <tr class = 'nested-fields order-extra-fields'>
   <td>
-    <img src="https://dl.myket.ir/imageresizing/icon/small/wallpaper.aegean.cutecat.png" class="img-thumbnail" width="100" />
+    <%= image_tag (f.object.extra.image_url || 'https://dl.myket.ir/imageresizing/icon/small/wallpaper.aegean.cutecat.png'), class: 'img-thumbnail', width: 100 %>
   </td>
 
   <td>
@@ -8,7 +8,7 @@
       <%= f.hidden_field :extra_id %>
     </div>
 
-    <%= f.label :quantity, "Quantity of #{f.object.extra_id ? Extra.find(f.object.extra_id).name : 'Something'}" %>
+    <%= f.label :quantity, "Quantity of #{f.object.extra ? f.object.extra.name : 'Something'}" %>
   </td>
 
   <td class = 'field'>
