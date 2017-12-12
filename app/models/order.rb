@@ -42,7 +42,7 @@ class Order < ApplicationRecord
   def apply_discount
     if end_time.nil?
       1
-    elsif after_midnight?(start_time)
+    elsif (0..4).include?(start_time.strftime('%w').to_i)
       0.8
     else
       1
@@ -57,10 +57,6 @@ class Order < ApplicationRecord
 
   def offset_day_of_end_time
     self.end_time += 1.day if time_difference.negative?
-  end
-
-  def after_midnight?(time)
-    (0..4).include?(time.hour)
   end
 
 end
