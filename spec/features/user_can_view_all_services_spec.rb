@@ -12,7 +12,7 @@ describe "User visits services index" do
     visit root_path
 
     expect(page).to have_content [@service, @service_2, @service_3]
-      .map { |service| "#{service.name} - open" }
+      .map { |service| "#{service.name}" }
       .join(' ')
 
     click_on "Mahjong 1"

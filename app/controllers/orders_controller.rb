@@ -57,7 +57,7 @@ class OrdersController < ApplicationController
 
   def destroy
     @order = Order.find(params[:id])
-    @order.order_extras.delete_all
+    @order.order_extras.destroy_all
     @order.destroy
     @order.service.open!
     flash[:info] = "Order has been cancelled"
