@@ -2,11 +2,11 @@ class Order < ApplicationRecord
   belongs_to :service
   has_one :sale
   has_many :snack_order_extras,
-    -> { joins(:extra).where('extras.extra_type' => 'snack') },
+    -> { joins(:extra).where('extras.extra_type' => 'snack').group('order_extras.id') },
     class_name: 'OrderExtra',
     inverse_of: :order
   has_many :drink_order_extras,
-    -> { joins(:extra).where('extras.extra_type' => 'drink') },
+    -> { joins(:extra).where('extras.extra_type' => 'drink').group('order_extras.id') },
     class_name: 'OrderExtra',
     inverse_of: :order
   has_many :extras, through: :order_extras
