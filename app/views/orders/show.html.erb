@@ -15,13 +15,15 @@
 
 <div class = 'extra-receipt'>
   <h3>Total Snack/Drink Cost: <%= number_to_currency(@order.total_extras_cost) %></h3>
-  <% if @order.order_extras.all? { |extra| !extra.quantity.nil? } %>
-    <% @order.order_extras.map do |extra| %>
-      <%= Extra.find(extra.extra_id).name %> (<%= extra.quantity %>)
-        <ul>
-          <li>Price: <%= number_to_currency(extra.price) %></li>
-          <li>Subtotal: <%= number_to_currency(extra.price * extra.quantity) %></li>
-        </ul>
+
+  <% @order.order_extras.each do |order_extra| %>
+    <% if order_extra.quantity.present? %>
+      <%= order_extra.extra.name %> (<%= order_extra.quantity %>)
+
+      <ul>
+        <li>Price: <%= number_to_currency(order_extra.price) %></li>
+        <li>Subtotal: <%= number_to_currency(order_extra.price * order_extra.quantity) %></li>
+      </ul>
     <% end %>
   <% end %>
 </div>

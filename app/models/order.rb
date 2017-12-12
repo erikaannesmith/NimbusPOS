@@ -35,7 +35,7 @@ class Order < ApplicationRecord
   def total_extras_cost
     order_extras
       .select { |order_extra| order_extra.quantity && order_extra.quantity > 0 }
-      .map { |extra| extra.price * extra.quantity }
+      .map { |order_extra| order_extra.price * order_extra.quantity }
       .sum
   end
 
