@@ -36,7 +36,7 @@ class OrdersController < ApplicationController
   def edit
     @service = Service.find(params[:service_id])
     @order = @service.orders.find(params[:id])
-    
+
     render 'edit', layout: params[:no_layout].blank?
   end
 
