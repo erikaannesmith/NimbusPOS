@@ -37,13 +37,6 @@ class OrdersController < ApplicationController
     @service = Service.find(params[:service_id])
     @order = @service.orders.find(params[:id])
 
-    Extra.where.not(id: @order.order_extras.map(&:extra_id)).each do |extra|
-      case extra.extra_type
-      when 'snack' then @order.snack_order_extras.build(extra: extra)
-      when 'drink' then @order.drink_order_extras.build(extra: extra)
-      end
-    end
-
     render 'edit', layout: params[:no_layout].blank?
   end
 
